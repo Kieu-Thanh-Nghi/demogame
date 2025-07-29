@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class JumpState : StateBehavior
 {
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        base.OnStateEnter(animator, stateInfo, layerIndex);
+        _stateActions.JumpProcess();
+    }
     public override void FixedUpdateState()
     {
         _stateActions.MoveProcess();
@@ -11,7 +16,7 @@ public class JumpState : StateBehavior
 
     public override void UpdateState()
     {
-        _stateActions.JumpProcess();
+        _changeState.toJumpState();
         if (_changeState.JumpToIdle()) _animator.Play("Idle");
         if (_changeState.toAttackState()) _animator.SetTrigger("AttackTrigger");
         if (_changeState.toStrikeState()) _animator.Play("Strike");

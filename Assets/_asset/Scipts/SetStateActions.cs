@@ -21,6 +21,19 @@ public class SetStateActions : MonoBehaviour
         _jump = _player.GetComponent<Jump>();
     }
 
+    internal void ShootFireBall(bool isChangeFireBallSpeed = false, float newFireBallSpeed = 5, bool isChangeLifeTime = false, float newFireBallLifeTime = 3)
+    {
+        Bullet fireBall = GetComponent<CreateFireBall>().Shoot();
+        if (isChangeFireBallSpeed)
+        {
+            fireBall.SetUpFlySpeed(newFireBallSpeed);
+        }
+        if (isChangeLifeTime)
+        {
+            fireBall.SetUpLifeTime(newFireBallLifeTime);
+        }
+    }
+
     public void MoveProcess()
     {
         float direct = inputs.MoveInput();
@@ -34,12 +47,6 @@ public class SetStateActions : MonoBehaviour
         {
             if(physic.isGround) _jump.JumpUp();
         }
-    }
-
-    public void JumpCheck()
-    {
-        if(!physic.isUp)
-            inputs.JumpInput();
     }
 
     internal void CrouchTurn()

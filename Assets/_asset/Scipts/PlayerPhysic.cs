@@ -15,7 +15,7 @@ public class PlayerPhysic : MonoBehaviour
     }
     private void Update()
     {        
-        if (rb.velocity.y < 0) isFalling = true;
+        if (rb.velocity.y < -0.5) isFalling = true;
         else isFalling = false;
         if (rb.velocity.y > 0.5) isUp = true;
         else isUp = false;

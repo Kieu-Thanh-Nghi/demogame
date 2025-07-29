@@ -53,7 +53,7 @@ public class ChangeStateController : MonoBehaviour
 
     public bool JumpToIdle()
     {
-        if (physic.isGround && !physic.isUp)
+        if (physic.isGround && !physic.isUp && !physic.isFalling)
         {
             return true;
         }

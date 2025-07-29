@@ -44,7 +44,7 @@ public class InputControl : MonoBehaviour
 
     IEnumerator waitAJump()
     {
-        var wait = new WaitForSeconds(0.5f);
+        var wait = new WaitForSeconds(0.25f);
         yield return wait;
         isJump = false;
     }
