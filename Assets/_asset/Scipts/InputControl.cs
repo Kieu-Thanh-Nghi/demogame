@@ -47,5 +47,29 @@ public class InputControl : MonoBehaviour
         var wait = new WaitForSeconds(0.25f);
         yield return wait;
         isJump = false;
+    }   
+    
+    IEnumerator w(A _a)
+    {
+        var wait = new WaitForSeconds(0.25f);
+        yield return wait;
+        _a.value = !_a.value;
     }
+
+    A isJumpDelay = new();
+    public bool J()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isJumpDelay.value = true;
+            StopCoroutine(w(isJumpDelay));
+            StartCoroutine(w(isJumpDelay));
+            return isJumpDelay.value;
+        }
+        return isJumpDelay.value;
+    }
+}
+
+struct A{
+    public bool value;
 }

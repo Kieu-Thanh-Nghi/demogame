@@ -10,6 +10,7 @@ public class TurnSprite : MonoBehaviour
 
     private void Start()
     {
+        if (ShootAndDirectPoints == null) return;
         fixedRotation = ShootAndDirectPoints.rotation;
     }
     public void Turn(float direct)
@@ -18,12 +19,14 @@ public class TurnSprite : MonoBehaviour
         {
             if (spriteRenderer.flipX) return;
             spriteRenderer.flipX = true;
+            if (ShootAndDirectPoints == null) return;
             ShootAndDirectPoints.Rotate(new Vector3(0, 180, 0));
         }
         else if (direct > 0.1)
         {
             if (!spriteRenderer.flipX) return;
             spriteRenderer.flipX = false;
+            if (ShootAndDirectPoints == null) return;
             ShootAndDirectPoints.rotation = fixedRotation;
         }
     }
