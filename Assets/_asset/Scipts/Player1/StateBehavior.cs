@@ -8,6 +8,7 @@ public abstract class StateBehavior : StateMachineBehaviour
     [SerializeField] protected PlayerControl _playerCtrl;
     [SerializeField] protected SetStateActions _stateActions;
     [SerializeField] protected ChangeStateController _changeState;
+    [SerializeField] protected PlayerPhysic _physic;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -19,6 +20,7 @@ public abstract class StateBehavior : StateMachineBehaviour
         _playerCtrl = animator.GetComponent<PlayerControl>();
         _stateActions = _playerCtrl.GetComponent<SetStateActions>();
         _changeState = _playerCtrl.GetComponent<ChangeStateController>();
+        _physic = _playerCtrl.GetComponent<PlayerPhysic>();
     }
 
     public abstract void UpdateState();

@@ -16,11 +16,13 @@ public class TurnSprite : MonoBehaviour
     {
         if (direct < -0.1)
         {
+            if (spriteRenderer.flipX) return;
             spriteRenderer.flipX = true;
             ShootAndDirectPoints.Rotate(new Vector3(0, 180, 0));
         }
         else if (direct > 0.1)
         {
+            if (!spriteRenderer.flipX) return;
             spriteRenderer.flipX = false;
             ShootAndDirectPoints.rotation = fixedRotation;
         }

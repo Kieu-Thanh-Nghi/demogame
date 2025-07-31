@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6378537483257885344}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.74, y: -0.6600001, z: 0}
+  m_LocalPosition: {x: 0.74, y: -0.6600003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7726750724423307386}
-  ShootAndDirectPoints: {fileID: 0}
+  ShootAndDirectPoints: {fileID: 9000438826129468013}
 --- !u!114 &7726750724423307362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +347,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FireBallPrefab: {fileID: 646673946068729832, guid: 40817b777aefd084d97db0117020b8d1, type: 3}
+  IblastPrefab: {fileID: 7601334910744636046, guid: 17b8889ec16bf5944a93535960158988, type: 3}
+  Particle: {fileID: 3771986944223453558, guid: 4539d8d9407d5974baf03313fe840c4c, type: 3}
   ShootPosition: {fileID: 3142716852229169681}
 --- !u!1 &7726750724637615009
 GameObject:

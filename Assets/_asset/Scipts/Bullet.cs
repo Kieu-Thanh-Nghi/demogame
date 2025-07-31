@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Translate(transform.right * FlySpeed * Time.fixedDeltaTime, Space.Self);
+        transform.Translate(transform.right * FlySpeed * Time.fixedDeltaTime, Space.World);
     }
 
     public void SetUpFlySpeed(float newSpeed)
