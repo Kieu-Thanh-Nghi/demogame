@@ -14,17 +14,34 @@ public class InputControl : MonoBehaviour
         return Input.GetAxis("Horizontal");
     }
 
-    bool isJump;
+    DelayTemp DelayisJump = new();
     public bool JumpInput()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            isJump = true;
-            StopCoroutine(waitAJump());
-            StartCoroutine(waitAJump());
-            return isJump;
+            return true;
         }
-        return isJump;
+        else
+        {
+            return DelayisJump.value;
+        }
+    }
+    WaitForSeconds wait = new WaitForSeconds(0.25f);
+    public void JumpInputDelay()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StopCoroutine("DelayInput");
+            DelayisJump.value = false;
+            StartCoroutine(DelayInput(DelayisJump, wait));
+        }
+    }
+
+    IEnumerator DelayInput(DelayTemp _a, WaitForSeconds wait)
+    {
+        _a.value = true;
+        yield return wait;
+        _a.value = false;
     }
 
     internal bool AttackInput()
@@ -40,36 +57,9 @@ public class InputControl : MonoBehaviour
     internal bool FlyKickInput()
     {
         return Input.GetKeyDown(KeyCode.L);
-    }
-
-    IEnumerator waitAJump()
-    {
-        var wait = new WaitForSeconds(0.25f);
-        yield return wait;
-        isJump = false;
-    }   
-    
-    IEnumerator w(A _a)
-    {
-        var wait = new WaitForSeconds(0.25f);
-        yield return wait;
-        _a.value = !_a.value;
-    }
-
-    A isJumpDelay = new();
-    public bool J()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            isJumpDelay.value = true;
-            StopCoroutine(w(isJumpDelay));
-            StartCoroutine(w(isJumpDelay));
-            return isJumpDelay.value;
-        }
-        return isJumpDelay.value;
-    }
+    } 
 }
 
-struct A{
+class DelayTemp{
     public bool value;
 }

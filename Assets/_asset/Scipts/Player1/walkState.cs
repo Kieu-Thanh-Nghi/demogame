@@ -1,27 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class walkState : StateBehavior
+public class WalkState : GroundState
 {
+    protected Move move;
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        base.OnStateEnter(animator, stateInfo, layerIndex);
+        move = animator.GetComponent<Move>();
+    }
     public override void FixedUpdateState()
     {
-        _stateActions.MoveProcess();
+        moveCharacter();
     }
 
-    public override void UpdateState()
+    private void moveCharacter()
     {
-        if (_changeState.toIdleState())
+        move.Going(Input.GetAxis("Horizontal"));
+    }
+
+    protected override void CheckGround(Animator animator)
+    {
+        WalktoIdle(animator);
+        base.CheckGround(animator);
+    }
+
+    protected virtual void WalktoIdle(Animator animator)
+    {
+        if (Mathf.Abs(UniData._inputs.MoveInput()) < 0.1)
         {
-            _animator.Play("Idle");
+            animator.Play(AnimName.Idle);
         }
-        if (_changeState.toJumpState())
-        {
-            _animator.Play("Jump");
-        }
-        if (_changeState.toCrouchState()) _animator.Play("Crouch");
-        if (_changeState.toAttackState()) _animator.Play("Attack");
-        if (_changeState.toStrikeState()) _animator.Play("Strike");
-        if (_changeState.toFlyKickState()) _animator.Play("FlyKick");
     }
 }

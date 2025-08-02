@@ -1,34 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpState : StateBehavior
+public class JumpState : TurnableStateBehavior
 {
+    protected Jump jump;
+    protected Move move;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        if (_physic.isGround)
-        {
-            animator.SetInteger("AttackTimes", 0);
-            animator.SetInteger("StrikeTimes", 0);
-            animator.SetInteger("FlyKickTimes", 0);
-        }
-        _stateActions.JumpProcess();
-    }
-    public override void FixedUpdateState()
-    {
-        _stateActions.MoveProcess();
+        jump = animator.GetComponent<Jump>();
+        move = animator.GetComponent<Move>();
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _changeState.toJumpState();
-        if (_changeState.JumpToIdle()) _animator.Play("Idle");
-        if (_animator.GetInteger("AttackTimes") < 1 && _changeState.toAttackState()) _animator.SetTrigger("AttackTrigger");
-        if (_animator.GetInteger("StrikeTimes") < 1 && _changeState.toStrikeState()) _animator.Play("Strike");
-        if (_animator.GetInteger("FlyKickTimes") < 1 && _changeState.toFlyKickState()) _animator.Play("FlyKick");
+        if (UniData._physic.isGround)
+        {
+            if(!UniData._physic.isUp)
+                animator.Play(AnimName.Idle);
+        }
+        else
+        {
+            UniData._inputs.JumpInputDelay();
+        }
+        base.OnStateUpdate(animator, stateInfo, layerIndex);
     }
-    public override void UpdateState()
+
+    protected override void CheckAttack(Animator animator)
     {
+        if (UniData._inputs.AttackInput())
+        {
+            animator.Play(AnimName.JumpAttack);
+        }
+    }
+
+    public override void FixedUpdateState()
+    {
+        move.Going(UniData._inputs.MoveInput());
     }
 }
